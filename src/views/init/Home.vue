@@ -1,21 +1,57 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../../assets/logo.png" />
-    <HelloWorld msg="'Welcome to Your Vue.js + TypeScript App'" />
+  <div :class="bem()">
+    <SideBar :class="bem('side-bar')" />
+    <section :class="bem('main')">
+      <Header />
+      <div :class="bem('content')">
+        <ul>
+          <li v-for="song in songs" :key="song.id">{{ song.name }}</li>
+        </ul>
+      </div>
+    </section>
   </div>
 </template>
-
 <script lang="ts">
-import { defineComponent, defineProps, onMounted } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import { onMounted, ref } from 'vue';
+import Api from '@/apis/index';
+import { createNamespace } from '@/utils/create';
+import SideBar from '../layout/side-bar/index.vue';
+import Header from '../layout/header/index.vue';
 
-export default defineComponent({
-  name: 'Home',
+const [name, bem] = createNamespace('home');
+export default {
+  name,
   components: {
-    HelloWorld,
+    SideBar,
+    Header,
   },
   setup() {
-    return {};
+    const songs = ref<any>([]);
+    const getData = async () => {
+      const data = await Api.getRecommendSongs({
+        limit: 35,
+      });
+      songs.value = data;
+    };
+
+    onMounted(() => {
+      getData();
+    });
+    return {
+      bem,
+      songs,
+    };
   },
-});
+};
 </script>
+<style lang="less" scoped>
+@b: kw-home;
+
+.@{b} {
+  display: flex;
+  &__main {
+    flex: 1 1 auto;
+    border: 1px solid #000;
+  }
+}
+</style>

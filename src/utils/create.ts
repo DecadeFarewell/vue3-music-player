@@ -1,4 +1,7 @@
-export type Mod = string | { [key: string]: any };
+export interface Dictionary<T = string> {
+  [x: string]: T;
+}
+export type Mod = string | Dictionary;
 export type Mods = Mod | Mod[];
 
 function genBem(name: string, mods?: Mods): string {
