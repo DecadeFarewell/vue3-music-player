@@ -1,15 +1,20 @@
 <template>
   <div :class="bem()">
-    <h3>header</h3>
+    <Search />
+
+    <a-button type="primary" :class="bem('login-btn')">登录</a-button>
   </div>
 </template>
 <script lang="ts">
 import { createNamespace } from '@/utils/create';
+import Search from './components/search.vue';
 
 const [name, bem] = createNamespace('header');
 export default {
   name,
-  components: {},
+  components: {
+    Search,
+  },
   setup() {
     return {
       bem,
@@ -21,7 +26,12 @@ export default {
 @b: kw-header;
 
 .@{b}{
-  border: 1px solid #000;
   height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  &__login-btn {
+    margin-left: 20px;
+  }
 }
 </style>

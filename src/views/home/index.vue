@@ -51,6 +51,8 @@ export default {
   display: flex;
   &__main {
     flex: 1 1 auto;
+    box-sizing: border-box;
+    padding: 20px;
     border: 1px solid #000;
   }
 }
