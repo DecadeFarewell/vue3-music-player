@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style */
 import axios, { AxiosError, AxiosResponse, AxiosRequestConfig, AxiosPromise } from 'axios';
-import { ElMessage } from 'element-plus';
+import { message as AMessage } from 'ant-design-vue';
 
 interface Dictionary<T = any> {
   [x: string]: T;
@@ -11,7 +11,7 @@ interface Request {
 }
 
 const errorMessage = (message: string) => {
-  ElMessage({ type: 'error', message, duration: 2000 });
+  AMessage.error({ type: 'error', message, duration: 2000 });
 };
 
 const successResponse = (res: AxiosResponse) => {
